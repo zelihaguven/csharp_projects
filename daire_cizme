@@ -1,0 +1,67 @@
+using System;
+
+namespace DaireCizim
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Dairenin yarıçapını girin: ");
+            if (double.TryParse(Console.ReadLine(), out double radius) && radius > 0)
+            {
+                Circle circle = new Circle(radius);
+                circle.Draw();
+            }
+            else
+            {
+                Console.WriteLine("Lütfen geçerli bir pozitif sayı girin.");
+            }
+        }
+    }
+
+    public class Circle
+    {
+        private double Radius { get; }
+
+        public Circle(double radius)
+        {
+            Radius = radius;
+        }
+
+        public void Draw()
+        {
+            int diameter = (int)(Radius * 2);
+            for (int y = 0; y <= diameter; y++)
+            {
+                for (int x = 0; x <= diameter; x++)
+                {
+                    double distance = Math.Sqrt(Math.Pow(x - Radius, 2) + Math.Pow(y - Radius, 2));
+                    if (distance < Radius + 0.5 && distance > Radius - 0.5)
+                    {
+                        Console.Write("*");
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+} 
+
+/* notlarım :
+double.TryParse Metodu
+Amaç: Kullanıcının girdiği bir string değeri, double türüne dönüştürmek için kullanılır. 
+Bu dönüşüm başarılı olursa, dönüşüm sonucunu bir değişkene atar.
+Kullanım: double.TryParse metodu iki parametre alır:
+String Değeri: Dönüştürülmek istenen string.
+Out Parametre: Dönüşüm başarılı olursa, bu parametreye dönüşüm sonucu atanır.
+
+out Anahtar Kelimesi
+Amaç: out anahtar kelimesi, bir metot çağrısında bir değişkenin referansını geçmek için kullanılır.
+ Bu, metot içinde değişkenin değerinin atanabileceği anlamına gelir.
+Kullanım: out ile tanımlanan bir değişken, metot çağrısı yapıldığında, metot içinde bir değer atanabilir. 
+Metot çağrısı tamamlandığında, bu değişkenin değeri, metot içinde atanan değerle güncellenir.
+*/
