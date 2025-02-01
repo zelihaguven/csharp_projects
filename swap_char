@@ -1,0 +1,31 @@
+using System;
+
+namespace CharacterSwap
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Bir string ifade girin: ");
+            string input = Console.ReadLine();
+
+            string output = SwapCharacters(input);
+            Console.WriteLine("Sonuç: " + output);
+        }
+
+        static string SwapCharacters(string input)
+        {
+            char[] characters = input.ToCharArray();
+
+            for (int i = 1; i < characters.Length; i += 2)
+            {
+                // İki ardışık karakterin yerini değiştir
+                char temp = characters[i - 1];
+                characters[i - 1] = characters[i];
+                characters[i] = temp;
+            }
+
+            return new string(characters);
+        }
+    }
+}
