@@ -1,0 +1,46 @@
+    
+using System;
+
+namespace ucgen
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Kenar sayısını girin (3 veya daha fazla): ");
+            int sides = int.Parse(Console.ReadLine());
+
+            if (sides < 3)
+            {
+                Console.WriteLine("Üçgen çizmek için en az 3 kenar gereklidir.");
+                return;
+            }
+
+            DrawTriangle(sides);
+        }
+
+        static void DrawTriangle(int sides)
+        {
+            // Üçgenin yüksekliğini belirleyelim
+            int height = sides;
+
+            for (int i = 1; i <= height; i++)
+            {
+                // Boşlukları yazdır
+                for (int j = i; j < height; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                // Yıldızları yazdır
+                for (int k = 1; k <= (2 * i - 1); k++)
+                {
+                    Console.Write("*");
+                }
+
+                // Yeni satıra geç
+                Console.WriteLine();
+            }
+        }
+    }
+}
