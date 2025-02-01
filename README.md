@@ -49,7 +49,19 @@ Bu uygulama, kullanıcıdan alınan bir string ifade içerisindeki karakterleri 
 2. Bir string ifade girin (örneğin: `Merhaba Hello Question`).
 3. Uygulama, her iki ardışık karakterin yerini değiştirerek sonucu gösterecektir.
 
-  
+### 6. Alan-Çevre Hesabı Yapma
 
+## Uygulama Özellikleri
+- Kullanıcıdan işlem yapmak istediği geometrik şekli (Dikdörtgen, Daire, Üçgen) alır.
+- Seçilen şekle göre, kenar bilgilerini kullanıcıdan alır.
+- Hesaplanmak istenen boyutu (Alan, Çevre) kullanıcıdan alır.
+- Hesap sonucunu anlaşılır bir şekilde geri döndürür.
+
+## Kullanım
+1. Uygulamayı çalıştırın.
+2. İşlem yapmak istediğiniz şekli girin (Dikdörtgen, Daire, Üçgen).
+3. Seçtiğiniz şekle göre gerekli kenar bilgilerini girin.
+4. Hesaplamak istediğiniz boyutu (alan/çevre) girin.
+5. Uygulama, belirtilen şeklin alanını veya çevresini hesaplayarak sonucu gösterecektir.
 
 
