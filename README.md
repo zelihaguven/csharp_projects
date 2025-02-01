@@ -39,6 +39,17 @@ Bu uygulama, kullanıcıdan Fibonacci serisindeki terim sayısını alarak bu se
 1. Uygulamayı çalıştırın.
 2. Fibonacci serisindeki terim sayısını girin.
 3. Uygulama, Fibonacci serisini ve ortalamasını gösterecektir.
+ 
+### 5. Karakter Değiştirme
+
+Bu uygulama, kullanıcıdan alınan bir string ifade içerisindeki karakterleri bir önceki karakter ile yer değiştirir.
+
+#### Kullanım
+1. Uygulamayı çalıştırın.
+2. Bir string ifade girin (örneğin: `Merhaba Hello Question`).
+3. Uygulama, her iki ardışık karakterin yerini değiştirerek sonucu gösterecektir.
+
+  
 
 
 
