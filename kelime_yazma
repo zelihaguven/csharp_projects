@@ -1,0 +1,46 @@
+using System;
+
+namespace StringManipulation
+{
+    class Program
+    {
+        public static void Main()
+        {
+            Console.WriteLine("Kelimeyi ve bölmek istediğiniz indeksi giriniz (örneğin: Algoritma,3): ");
+            string input = Console.ReadLine();
+
+            // Girdiyi virgüle göre ayır
+            string[] parts = input.Split(',');
+            // input.Split(',') ile girdi iki parçaya ayrılır. İlk parça kelime, ikinci parça ise indeks olur.
+
+
+
+            if (parts.Length != 2)
+            {
+                Console.WriteLine("Lütfen doğru formatta bir girdi girin (Kelime,Index).");
+                return;
+            }
+
+            string kelime = parts[0];
+            if (!int.TryParse(parts[1], out int index) || index < 0 || index >= kelime.Length)
+            {
+                Console.WriteLine("Geçersiz indeks. Lütfen geçerli bir indeks girin.");
+                return;
+            }
+
+            // Belirtilen indeksteki karakteri çıkart
+            string yeniKelime = kelime.Remove(index, 1); 
+            // Remove metodu ile belirtilen indeksteki karakteri çıkartır.
+
+
+            Console.WriteLine("Sonuç: " + yeniKelime);
+        }
+    }
+}
+
+/* not : 
+int.TryParse(parts[1], out int index) ifadesi, 
+parts[1]'deki değerin bir tam sayıya dönüştürülüp dönüştürülemeyeceğini kontrol eder. 
+Eğer dönüşüm başarılı olursa, index değişkenine bu tam sayı atanır 
+ TryParse metodu true döner. Aksi takdirde, false döner.
+*/
