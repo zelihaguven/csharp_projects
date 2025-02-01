@@ -1,0 +1,105 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("İşlem yapmak istediğiniz şekli girin (Dikdörtgen, Daire, Üçgen): ");
+        string sekil = Console.ReadLine().ToLower();
+
+        switch (sekil)
+        {
+            case "dikdörtgen":
+                HesaplaDikdörtgen();
+                break;
+            case "daire":
+                HesaplaDaire();
+                break;
+            case "üçgen":
+                HesaplaÜçgen();
+                break;
+            default:
+                Console.WriteLine("Geçersiz şekil girdiniz.");
+                break;
+        }
+    }
+
+    static void HesaplaDikdörtgen()
+    {
+        Console.WriteLine("Dikdörtgen için ilk kenarı girin: ");
+        double kenar1 = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("Dikdörtgen için ikinci kenarı girin: ");
+        double kenar2 = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("Hesaplamak istediğiniz boyutu girin (alan/çevre): ");
+        string islem = Console.ReadLine().ToLower();
+
+        if (islem == "alan")
+        {
+            double alan = kenar1 * kenar2;
+            Console.WriteLine($"Dikdörtgenin alanı: {alan}");
+        }
+        else if (islem == "çevre")
+        {
+            double cevre = 2 * (kenar1 + kenar2);
+            Console.WriteLine($"Dikdörtgenin çevresi: {cevre}");
+        }
+        else
+        {
+            Console.WriteLine("Geçersiz işlem girdiniz.");
+        }
+    }
+
+    static void HesaplaDaire()
+    {
+        Console.WriteLine("Dairenin yarıçapını girin: ");
+        double yaricap = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("Hesaplamak istediğiniz boyutu girin (alan/çevre): ");
+        string islem = Console.ReadLine().ToLower();
+
+        if (islem == "alan")
+        {
+            double alan = Math.PI * yaricap * yaricap;
+            Console.WriteLine($"Dairenin alanı: {alan}");
+        }
+        else if (islem == "çevre")
+        {
+            double cevre = 2 * Math.PI * yaricap;
+            Console.WriteLine($"Dairenin çevresi: {cevre}");
+        }
+        else
+        {
+            Console.WriteLine("Geçersiz işlem girdiniz.");
+        }
+    }
+
+    static void HesaplaÜçgen()
+    {
+        Console.WriteLine("Üçgenin taban uzunluğunu girin: ");
+        double taban = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("Üçgenin yüksekliğini girin: ");
+        double yukseklik = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("Hesaplamak istediğiniz boyutu girin (alan/çevre): ");
+        string islem = Console.ReadLine().ToLower();
+
+        if (islem == "alan")
+        {
+            double alan = (taban * yukseklik) / 2;
+            Console.WriteLine($"Üçgenin alanı: {alan}");
+        }
+        else if (islem == "çevre")
+        {
+            Console.WriteLine("Üçgenin diğer kenarlarını girin: ");
+            double kenar1 = Convert.ToDouble(Console.ReadLine());
+            double kenar2 = Convert.ToDouble(Console.ReadLine());
+            double cevre = taban + kenar1 + kenar2;
+            Console.WriteLine($"Üçgenin çevresi: {cevre}");
+        }
+        else
+        {
+            Console.WriteLine("Geçersiz işlem girdiniz.");
+        }
+    }
+}
