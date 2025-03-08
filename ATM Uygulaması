@@ -1,0 +1,148 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class ATM
+{
+    static Dictionary<string, string> registeredUsers = new Dictionary<string, string>()
+    {
+        { "user1", "password1" },  // Example user data
+        { "user2", "password2" }
+    };
+
+    static List<string> transactionLog = new List<string>();
+    static List<string> fraudLog = new List<string>();
+
+    static void Main()
+    {
+        Console.WriteLine("Welcome to the ATM!");
+
+        // User login
+        string username = GetUsername();
+        string password = GetPassword();
+
+        if (!IsValidUser(username, password))
+        {
+            Console.WriteLine("Invalid username or password.");
+            fraudLog.Add($"Failed login attempt for username: {username} at {DateTime.Now}");
+            return;
+        }
+
+        // User actions loop
+        bool sessionActive = true;
+        while (sessionActive)
+        {
+            Console.WriteLine("\nSelect an operation:");
+            Console.WriteLine("1. Withdraw Money");
+            Console.WriteLine("2. Deposit Money");
+            Console.WriteLine("3. Make a Payment");
+            Console.WriteLine("4. End of Day (EOD)");
+            Console.WriteLine("5. Exit");
+            Console.Write("Your choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    WithdrawMoney(username);
+                    break;
+
+                case 2:
+                    DepositMoney(username);
+                    break;
+
+                case 3:
+                    MakePayment(username);
+                    break;
+
+                case 4:
+                    EndOfDay();
+                    break;
+
+                case 5:
+                    sessionActive = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    // User Authentication
+    static string GetUsername()
+    {
+        Console.Write("Enter your username: ");
+        return Console.ReadLine();
+    }
+
+    static string GetPassword()
+    {
+        Console.Write("Enter your password: ");
+        return Console.ReadLine();
+    }
+
+    static bool IsValidUser(string username, string password)
+    {
+        return registeredUsers.ContainsKey(username) && registeredUsers[username] == password;
+    }
+
+    // ATM Operations
+    static void WithdrawMoney(string username)
+    {
+        Console.Write("Enter the amount to withdraw: ");
+        double amount = Convert.ToDouble(Console.ReadLine());
+
+        // Log the transaction
+        transactionLog.Add($"User {username} withdrew {amount} at {DateTime.Now}");
+        Console.WriteLine($"You have successfully withdrawn {amount}.");
+    }
+
+    static void DepositMoney(string username)
+    {
+        Console.Write("Enter the amount to deposit: ");
+        double amount = Convert.ToDouble(Console.ReadLine());
+
+        // Log the transaction
+        transactionLog.Add($"User {username} deposited {amount} at {DateTime.Now}");
+        Console.WriteLine($"You have successfully deposited {amount}.");
+    }
+
+    static void MakePayment(string username)
+    {
+        Console.Write("Enter the payment amount: ");
+        double amount = Convert.ToDouble(Console.ReadLine());
+
+        // Log the transaction
+        transactionLog.Add($"User {username} made a payment of {amount} at {DateTime.Now}");
+        Console.WriteLine($"You have successfully made a payment of {amount}.");
+    }
+
+    // End of Day Report
+    static void EndOfDay()
+    {
+        string fileName = $"EOD_{DateTime.Now:ddMMyyyy}.txt";
+
+        // Write transaction and fraud logs to file
+        using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            writer.WriteLine("End of Day Report");
+            writer.WriteLine($"Date: {DateTime.Now}");
+
+            writer.WriteLine("\nTransaction Log:");
+            foreach (var transaction in transactionLog)
+            {
+                writer.WriteLine(transaction);
+            }
+
+            writer.WriteLine("\nFraud Log:");
+            foreach (var fraud in fraudLog)
+            {
+                writer.WriteLine(fraud);
+            }
+        }
+
+        Console.WriteLine($"End of Day report has been saved to {fileName}");
+    }
+}
