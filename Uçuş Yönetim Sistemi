@@ -1,0 +1,157 @@
+using System;
+using System.Collections.Generic;
+
+// Havaalanı Sınıfı
+class Airport
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+
+    public Airport(string id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+}
+
+// Uçak Tipi (Modeli) Sınıfı
+class AirplaneType
+{
+    public string Model { get; set; }
+    public int RequiredPilots { get; set; }
+
+    public AirplaneType(string model, int requiredPilots)
+    {
+        Model = model;
+        RequiredPilots = requiredPilots;
+    }
+}
+
+// Uçak Sınıfı
+class Airplane
+{
+    public string Id { get; set; }
+    public AirplaneType Type { get; set; }
+    public bool IsOperational { get; set; }
+
+    public Airplane(string id, AirplaneType type, bool isOperational)
+    {
+        Id = id;
+        Type = type;
+        IsOperational = isOperational;
+    }
+}
+
+// Pilot Sınıfı
+class Pilot
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public int ExperienceLevel { get; set; } // Deneyim seviyesi (yıl)
+
+    public Pilot(string id, string name, int experienceLevel)
+    {
+        Id = id;
+        Name = name;
+        ExperienceLevel = experienceLevel;
+    }
+}
+
+// Uçuş Sınıfı
+class Flight
+{
+    public string Id { get; set; }
+    public Airport DepartureAirport { get; set; }
+    public Airport ArrivalAirport { get; set; }
+    public DateTime DepartureTime { get; set; }
+    public DateTime ArrivalTime { get; set; }
+    public Pilot Captain { get; set; }
+    public Pilot CoPilot { get; set; }
+    public Airplane Airplane { get; set; }
+
+    public Flight(string id, Airport departureAirport, Airport arrivalAirport, DateTime departureTime, DateTime arrivalTime, Pilot captain, Pilot coPilot, Airplane airplane)
+    {
+        Id = id;
+        DepartureAirport = departureAirport;
+        ArrivalAirport = arrivalAirport;
+        DepartureTime = departureTime;
+        ArrivalTime = arrivalTime;
+        Captain = captain;
+        CoPilot = coPilot;
+        Airplane = airplane;
+    }
+}
+
+// Hava Yolu Şirketi Sınıfı
+class Airline
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public List<Airplane> Airplanes { get; set; }
+    public List<Pilot> Pilots { get; set; }
+    public List<Flight> Flights { get; set; }
+
+    public Airline(string id, string name)
+    {
+        Id = id;
+        Name = name;
+        Airplanes = new List<Airplane>();
+        Pilots = new List<Pilot>();
+        Flights = new List<Flight>();
+    }
+
+    public void AddAirplane(Airplane airplane)
+    {
+        Airplanes.Add(airplane);
+    }
+
+    public void AddPilot(Pilot pilot)
+    {
+        Pilots.Add(pilot);
+    }
+
+    public void AddFlight(Flight flight)
+    {
+        Flights.Add(flight);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Örnek Havaalanları
+        Airport airport1 = new Airport("1", "Istanbul Airport");
+        Airport airport2 = new Airport("2", "London Heathrow");
+
+        // Örnek Uçak Tipleri
+        AirplaneType boeing747 = new AirplaneType("Boeing 747", 2);
+        AirplaneType airbusA320 = new AirplaneType("Airbus A320", 2);
+
+        // Örnek Uçaklar
+        Airplane airplane1 = new Airplane("A1", boeing747, true);
+        Airplane airplane2 = new Airplane("A2", airbusA320, true);
+
+        // Örnek Pilotlar
+        Pilot pilot1 = new Pilot("P1", "John Doe", 10);
+        Pilot pilot2 = new Pilot("P2", "Jane Smith", 5);
+
+        // Örnek Hava Yolu Şirketi
+        Airline airline = new Airline("A1", "Sky Airlines");
+        airline.AddAirplane(airplane1);
+        airline.AddAirplane(airplane2);
+        airline.AddPilot(pilot1);
+        airline.AddPilot(pilot2);
+
+        // Örnek Uçuşlar
+        Flight flight1 = new Flight("F1", airport1, airport2, DateTime.Now.AddHours(2), DateTime.Now.AddHours(5), pilot1, pilot2, airplane1);
+        airline.AddFlight(flight1);
+
+        // Uçuş Bilgilerini Yazdırma
+        Console.WriteLine($"Flight ID: {flight1.Id}");
+        Console.WriteLine($"Departure: {flight1.DepartureAirport.Name} at {flight1.DepartureTime}");
+        Console.WriteLine($"Arrival: {flight1.ArrivalAirport.Name} at {flight1.ArrivalTime}");
+        Console.WriteLine($"Captain: {flight1.Captain.Name}, CoPilot: {flight1.CoPilot.Name}");
+        Console.WriteLine($"Airplane Model: {flight1.Airplane.Type.Model}");
+    }
+}
