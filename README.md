@@ -49,6 +49,53 @@ Arrival: London Heathrow at 2025-03-10 17:00:00
 Captain: John Doe, CoPilot: Jane Smith
 Airplane Model: Boeing 747
 
+# Hayvanat Bahçesi Yönetim Sistemi
+
+Bu proje, farklı hayvan grupları (atlar, kedigiller, kemirgenler vb.) için beslenme düzeni ve ilaç dozajı hesaplamaları yapan bir yönetim sistemini simüle etmektedir. Polimorfizm kullanarak her hayvan türü için özelleştirilmiş hesaplama yöntemleri uygulanmıştır.
+
+## Özellikler
+
+- **Hayvan Sınıfları**: Atlar, kedigiller, kemirgenler gibi farklı hayvan türleri sınıflandırılmıştır.
+- **İlaç Dozajı Hesaplaması**: Her hayvan türü için özel dozaj hesaplama fonksiyonları mevcuttur.
+- **Yem Verme Zamanı**: Her hayvan türüne özel yem verme zamanları hesaplanmaktadır.
+  
+
+## Sınıflar ve Metodlar
+
+### `Animals` Sınıfı
+Tüm hayvanlar için ortak özellikleri içerir. Her hayvanın adı, ağırlığı ve yaşı bulunmaktadır. Ayrıca, tüm hayvanlar için genel dozaj ve yem verme zamanı hesaplamak için sanal (`virtual`) metodlar tanımlanmıştır.
+
+- **Özellikler**:
+  - `name`: Hayvanın adı.
+  - `weight`: Hayvanın ağırlığı.
+  - `age`: Hayvanın yaşı.
+
+- **Metodlar**:
+  - `GetDosage()`: Hayvanın ilaç dozajını hesaplar. (Polimorfizm ile her alt sınıf tarafından özelleştirilebilir)
+  - `GetFeedSchedule()`: Hayvanın yem verme zamanını döndürür. (Polimorfizm ile her alt sınıf tarafından özelleştirilebilir)
+
+### `Horses` Sınıfı
+Atlar için özel bir sınıftır. `GetDosage()` ve `GetFeedSchedule()` metodlarını özelleştirir.
+
+- **Özelleştirilmiş Metodlar**:
+  - `GetDosage()`: Atlar için özel dozaj hesaplama formülü kullanır.
+  - `GetFeedSchedule()`: Atlar için yem verme zamanlarını döndürür.
+
+### `Cats` Sınıfı
+Kedigiller (örneğin aslanlar) için özel bir sınıftır. `GetDosage()` ve `GetFeedSchedule()` metodlarını özelleştirir.
+
+- **Özelleştirilmiş Metodlar**:
+  - `GetDosage()`: Kediler için özel dozaj hesaplama formülü kullanır.
+  - `GetFeedSchedule()`: Kediler için yem verme zamanlarını döndürür.
+
+### `Chewer` Sınıfı
+Kemirgenler (örneğin kunduzlar) için özel bir sınıftır. `GetDosage()` ve `GetFeedSchedule()` metodlarını özelleştirir.
+
+- **Özelleştirilmiş Metodlar**:
+  - `GetDosage()`: Kemirgenler için özel dozaj hesaplama formülü kullanır.
+  - `GetFeedSchedule()`: Kemirgenler için yem verme zamanlarını döndürür.
+
+
 ### 1. Daire Çizimi
 
 Bu uygulama, kullanıcıdan bir yarıçap alarak konsolda bir daire çizer.
