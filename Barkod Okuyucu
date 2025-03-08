@@ -1,0 +1,91 @@
+using System;
+using System.Drawing;
+using ZXing;
+using System.IO;
+
+class BarcodeGeneratorReader
+{
+    static void Main()
+    {
+        Console.WriteLine("1. Barcode Üret\n2. Barcode Oku");
+        string choice = Console.ReadLine();
+
+        if (choice == "1")
+        {
+            // Barcode üret
+            Console.Write("Lütfen barcode için bir metin girin: ");
+            string barcodeText = Console.ReadLine();
+
+            // Barcode'u üret ve dosyaya kaydet
+            GenerateBarcode(barcodeText);
+        }
+        else if (choice == "2")
+        {
+            // Barcode oku
+            Console.Write("Lütfen barcode resminin yolunu girin: ");
+            string filePath = Console.ReadLine();
+
+            // Barcode'u oku
+            ReadBarcode(filePath);
+        }
+        else
+        {
+            Console.WriteLine("Geçersiz seçenek.");
+        }
+    }
+
+    // Barcode üretme fonksiyonu
+    static void GenerateBarcode(string barcodeText)
+    {
+        try
+        {
+            // Barcode yazıcı oluştur
+            BarcodeWriter barcodeWriter = new BarcodeWriter();
+            barcodeWriter.Format = BarcodeFormat.CODE_128; // Barcode formatı belirleniyor
+            barcodeWriter.Options = new ZXing.Common.EncodingOptions
+            {
+                Width = 300, // Resim genişliği
+                Height = 150 // Resim yüksekliği
+            };
+
+            // Barcode'u oluştur
+            Bitmap barcodeBitmap = barcodeWriter.Write(barcodeText);
+
+            // Dosyaya yazma
+            string filePath = "barcode.png";
+            barcodeBitmap.Save(filePath);
+            Console.WriteLine($"Barcode başarıyla oluşturuldu ve '{filePath}' olarak kaydedildi.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Bir hata oluştu: " + ex.Message);
+        }
+    }
+
+    // Barcode okuma fonksiyonu
+    static void ReadBarcode(string filePath)
+    {
+        try
+        {
+            // Resmi yükle
+            Bitmap barcodeBitmap = new Bitmap(filePath);
+
+            // Barcode okuyucu oluştur
+            BarcodeReader barcodeReader = new BarcodeReader();
+            var result = barcodeReader.Decode(barcodeBitmap);
+
+            if (result != null)
+            {
+                Console.WriteLine($"Okunan Barcode: {result.Text}");
+            }
+            else
+            {
+                Console.WriteLine("Barcode okunamadı.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Bir hata oluştu: " + ex.Message);
+        }
+    }
+}
