@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+
+class User
+{
+    public string Name { get; set; }
+    public bool IsSubscriber { get; set; }
+    public double CreditBalance { get; set; }
+
+    public User(string name, bool isSubscriber)
+    {
+        Name = name;
+        IsSubscriber = isSubscriber;
+        CreditBalance = 0;
+    }
+
+    public void BuyMovie(Movie movie)
+    {
+        Console.WriteLine($"{Name} is buying the movie: {movie.Title}");
+        // Deduct money from balance here if needed
+    }
+
+    public void RentMovie(Movie movie)
+    {
+        if (IsSubscriber && CreditBalance >= movie.RentalPrice)
+        {
+            CreditBalance -= movie.RentalPrice;
+            Console.WriteLine($"{Name} rented the movie: {movie.Title}");
+        }
+        else if (!IsSubscriber)
+        {
+            Console.WriteLine($"{Name} is not a subscriber and cannot rent movies.");
+        }
+        else
+        {
+            Console.WriteLine($"Not enough credits to rent the movie: {movie.Title}");
+        }
+    }
+
+    public void PurchaseCredits(double amount)
+    {
+        CreditBalance += amount;
+        Console.WriteLine($"{Name} purchased {amount} credits.");
+    }
+}
+
+class Movie
+{
+    public string Title { get; set; }
+    public double RentalPrice { get; set; }
+    public bool IsAvailable { get; set; }
+
+    public Movie(string title, double rentalPrice, bool isAvailable)
+    {
+        Title = title;
+        RentalPrice = rentalPrice;
+        IsAvailable = isAvailable;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Test user
+        User user1 = new User("John", true);
+        Movie movie1 = new Movie("Inception", 5, true);
+
+        // User purchasing credits
+        user1.PurchaseCredits(10);
+
+        // User renting a movie
+        user1.RentMovie(movie1);
+
+        // User buying a movie
+        user1.BuyMovie(movie1);
+    }
+}
