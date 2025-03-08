@@ -1,0 +1,128 @@
+using System;
+using System.Collections.Generic;
+
+class VotingApp
+{
+    static List<Category> categories = new List<Category>()
+    {
+        new Category("Best Film", new List<string> { "Film1", "Film2", "Film3" }),
+        new Category("Best Tech Stack", new List<string> { "C#", "Python", "Java" }),
+        new Category("Best Player", new List<string> { "Player1", "Player2", "Player3" })
+    };
+
+    static Dictionary<string, User> users = new Dictionary<string, User>();
+
+    static void Main()
+    {
+        Console.WriteLine("Welcome to the Voting Application!");
+
+        string username = GetUsername();
+
+        if (!users.ContainsKey(username))
+        {
+            RegisterUser(username);
+        }
+
+        User currentUser = users[username];
+
+        if (currentUser.HasVoted)
+        {
+            Console.WriteLine("You have already voted.");
+            return;
+        }
+
+        // Start voting
+        foreach (var category in categories)
+        {
+            Console.WriteLine($"Please vote for the category: {category.Name}");
+            for (int i = 0; i < category.Options.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {category.Options[i]}");
+            }
+
+            int vote = GetVote(category.Options.Count);
+            category.Votes[vote - 1]++;
+        }
+
+        currentUser.HasVoted = true;
+
+        // Display results
+        DisplayResults();
+    }
+
+    static string GetUsername()
+    {
+        Console.Write("Enter your username: ");
+        return Console.ReadLine();
+    }
+
+    static void RegisterUser(string username)
+    {
+        Console.WriteLine("You are not registered. Registering now...");
+        users[username] = new User(username);
+    }
+
+    static int GetVote(int optionsCount)
+    {
+        int vote;
+        while (true)
+        {
+            Console.Write("Enter your vote (1, 2, or 3): ");
+            if (int.TryParse(Console.ReadLine(), out vote) && vote >= 1 && vote <= optionsCount)
+            {
+                return vote;
+            }
+            else
+            {
+                Console.WriteLine("Invalid vote. Please enter a valid number.");
+            }
+        }
+    }
+
+    static void DisplayResults()
+    {
+        Console.WriteLine("\nVoting Results:");
+
+        foreach (var category in categories)
+        {
+            Console.WriteLine($"\n{category.Name} Results:");
+            int totalVotes = 0;
+            foreach (var vote in category.Votes)
+            {
+                totalVotes += vote;
+            }
+
+            for (int i = 0; i < category.Options.Count; i++)
+            {
+                double percentage = (double)category.Votes[i] / totalVotes * 100;
+                Console.WriteLine($"{category.Options[i]}: {category.Votes[i]} votes ({percentage:F2}%)");
+            }
+        }
+    }
+}
+
+class Category
+{
+    public string Name { get; set; }
+    public List<string> Options { get; set; }
+    public List<int> Votes { get; set; }
+
+    public Category(string name, List<string> options)
+    {
+        Name = name;
+        Options = options;
+        Votes = new List<int>(new int[options.Count]);
+    }
+}
+
+class User
+{
+    public string Username { get; set; }
+    public bool HasVoted { get; set; }
+
+    public User(string username)
+    {
+        Username = username;
+        HasVoted = false;
+    }
+}
