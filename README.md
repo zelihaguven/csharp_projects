@@ -96,6 +96,28 @@ Kemirgenler (örneğin kunduzlar) için özel bir sınıftır. `GetDosage()` ve 
   - `GetFeedSchedule()`: Kemirgenler için yem verme zamanlarını döndürür.
 
 
+# Film Sistemi
+
+Bu uygulama, kullanıcılara online film kiralama ve satın alma imkanı sunan bir sistemin tasarımını sunmaktadır. Kullanıcılar, sisteme abone olarak film kiralayabilir ve kredi satın alabilirler. Ayrıca, film satın almak da mümkündür. Eğer film mevcut değilse, kullanıcılar bu filmi talep edebilirler.
+
+## Sistemdeki Bileşenler
+
+1. **Kullanıcılar**
+   - **Normal Kullanıcı**: Film satın alabilir, ancak kredi ile film kiralayamaz.
+   - **Abone Kullanıcı**: Film satın alabilir, kredi ile film kiralayabilir.
+
+2. **Filmler**
+   - Her filmin adı, türü, fiyatı ve mevcut durumu (mevcut veya talep edilmekte) vardır.
+
+3. **Kredi Sistemi**
+   - Kullanıcıların kredi satın alabilmesini sağlar ve sadece abone olan kullanıcılar kredilerini kullanarak film kiralayabilirler.
+
+4. **Film Kiralama**
+   - Aboneler yalnızca mevcut filmleri kiralayabilir. Kiralama işlemi, kullanıcının kredi miktarına göre yapılır.
+
+5. **Talep Edilen Filmler**
+   - Mevcut olmayan filmler talep edilebilir ve bir süre sonra sisteme eklenebilir.
+
 ### 1. Daire Çizimi
 
 Bu uygulama, kullanıcıdan bir yarıçap alarak konsolda bir daire çizer.
