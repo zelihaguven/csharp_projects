@@ -1,0 +1,98 @@
+using System;
+
+class Zoo
+{
+    static void Main()
+    {
+        // Test case
+        Horses horse = new Horses("Horse", 500, 5);
+        Cats cat = new Cats("Lion", 190, 8);
+        Chewer beaver = new Chewer("Beaver", 30, 4);
+
+        Console.WriteLine($"{horse.name}'s dosage: {horse.GetDosage()}");
+        Console.WriteLine($"{cat.name}'s dosage: {cat.GetDosage()}");
+        Console.WriteLine($"{beaver.name}'s dosage: {beaver.GetDosage()}");
+
+        Console.WriteLine($"{horse.name}'s feed schedule: {horse.GetFeedSchedule()}");
+        Console.WriteLine($"{cat.name}'s feed schedule: {cat.GetFeedSchedule()}");
+        Console.WriteLine($"{beaver.name}'s feed schedule: {beaver.GetFeedSchedule()}");
+    }
+}
+
+class Animals
+{
+    public string name;
+    public double weight;
+    public double age;
+
+    public Animals(string name, double weight, double age)
+    {
+        this.name = name;
+        this.weight = weight;
+        this.age = age;
+    }
+
+    // Polymorphic method for dosage calculation
+    public virtual double GetDosage()
+    {
+        // Default dosage formula (can be overridden in subclasses)
+        return (age * weight) / 2;
+    }
+
+    // Polymorphic method for feed schedule calculation
+    public virtual string GetFeedSchedule()
+    {
+        return "Default feed schedule";
+    }
+}
+
+class Horses : Animals
+{
+    public Horses(string name, double weight, double age) : base(name, weight, age) { }
+
+    // Overriding the dosage calculation for horses
+    public override double GetDosage()
+    {
+        return (age * weight) / 1.5; // Example custom formula for horses
+    }
+
+    // Overriding the feed schedule for horses
+    public override string GetFeedSchedule()
+    {
+        return "Feed at 7 AM and 5 PM for horses.";
+    }
+}
+
+class Cats : Animals
+{
+    public Cats(string name, double weight, double age) : base(name, weight, age) { }
+
+    // Overriding the dosage calculation for cats
+    public override double GetDosage()
+    {
+        return (age * weight) / 3; // Example custom formula for cats
+    }
+
+    // Overriding the feed schedule for cats
+    public override string GetFeedSchedule()
+    {
+        return "Feed at 8 AM and 6 PM for cats.";
+    }
+}
+
+class Chewer : Animals
+{
+    public Chewer(string name, double weight, double age) : base(name, weight, age) { }
+
+    // Overriding the dosage calculation for chewers (e.g., beavers)
+    public override double GetDosage()
+    {
+        return (age * weight) / 2.5; // Example custom formula for chewers
+    }
+
+    // Overriding the feed schedule for chewers
+    public override string GetFeedSchedule()
+    {
+        return "Feed at 9 AM and 7 PM for chewers.";
+    }
+}
