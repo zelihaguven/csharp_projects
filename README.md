@@ -2,11 +2,118 @@
 
 Bu repository, C# dilinde yazılmış birkaç konsol uygulamasını içermektedir. Uygulamalar, kullanıcıdan alınan girdilere göre çeşitli işlemler yapmaktadır. Aşağıda her bir uygulamanın kısa bir açıklaması ve nasıl çalıştığına dair bilgiler bulunmaktadır.
 
-## Projeler
+------
 
-Tabii! İşte uçuşların ve pilotların yönetimi için geliştirdiğiniz sistem için örnek bir README.md dosyası:
+# ATM Uygulaması
 
-⸻
+Bu ATM uygulaması, kullanıcıların çeşitli bankacılık işlemleri yapabilmesini sağlar. Kullanıcılar para çekme, para yatırma, ödeme yapma gibi işlemleri gerçekleştirebilirler. Ayrıca, gün sonu raporu (EOD) alabilir ve işlem geçmişini dosyaya kaydedebilirler.
+
+## Özellikler
+
+- **Kullanıcı Doğrulaması:**
+  - Kullanıcılar, kullanıcı adı ve şifre ile sisteme giriş yaparlar.
+  - Geçersiz girişler fraud loguna kaydedilir.
+  
+- **İşlemler:**
+  - **Para Çekme**: Kullanıcılar hesaplarından para çekebilirler.
+  - **Para Yatırma**: Kullanıcılar hesabına para yatırabilirler.
+  - **Ödeme Yapma**: Kullanıcılar ödeme yapabilirler.
+  
+- **Gün Sonu (EOD) Raporu:**
+  - Kullanıcılar "End of Day" raporunu alabilirler.
+  - Tüm işlemler ve hatalı girişler bir dosyaya kaydedilir.
+  
+- **Fraud Log:**
+  - Hatalı girişler kaydedilir ve fraud loguna eklenir.
+
+## Kullanıcı Girişi
+
+Kullanıcı adı ve şifre, `registeredUsers` sözlüğünde saklanır. Kullanıcı doğrulaması yapıldıktan sonra ATM işlemleri yapılabilir.
+
+## İşlem Günlüğü
+
+Her işlem yapıldığında işlem kaydı `transactionLog` listesine eklenir. Bu liste, gün sonu raporunda dosyaya yazılır.
+
+## Gün Sonu (EOD) Raporu
+
+- Rapor, o günkü tüm işlemleri ve hatalı girişleri içerir.
+- Rapor, bilgisayarınızdaki çalışma dizinine `.txt` formatında kaydedilir. Dosya adı şu formatta olur: `EOD_DDMMYYYY.txt`.
+
+## Kullanım Adımları
+
+1. **Giriş Yapın:**
+   - Kullanıcı adı ve şifre girin.
+   
+2. **İşlem Seçin:**
+   - Para çekme, para yatırma veya ödeme yapma işlemlerini seçin.
+   
+3. **Gün Sonu Raporu:**
+   - Gün sonu raporu almak için `EOD` seçeneğini kullanın.
+
+4. **Çıkış Yapın:**
+   - ATM uygulamasından çıkmak için "Exit" seçeneğini seçin.
+--------
+# Voting Uygulaması Tasarımı
+
+Bu uygulama, kullanıcıların belirli kategorilerde oylama yapmalarını sağlayan bir sistemdir. Kullanıcılar sadece sisteme kayıtlı olduklarında oy verebilirler. Uygulama sonunda oylama sonuçları rakamsal ve yüzdesel olarak gösterilecektir. Kullanıcılar kategorileri seçebilir, oylama yapabilir ve sisteme kaydolabilir.
+
+## Sistemdeki Bileşenler
+
+1. **Kategoriler**
+   - Oylama yapılacak kategoriler önceden tanımlanmış olacak. Kullanıcılar bu kategorilerde oy kullanabilirler. 
+   - Örnek Kategoriler:
+     - **Film Kategorileri**: En iyi film, En iyi oyuncu, En iyi yönetmen
+     - **Tech Stack Kategorileri**: En iyi yazılım dili, En iyi framework
+     - **Spor Kategorileri**: En iyi futbolcu, En iyi takım
+
+2. **Kullanıcılar**
+   - Sisteme kayıtlı kullanıcılar oylama yapabilirler.
+   - Kullanıcılar, kullanıcı adıyla sisteme giriş yapar ve eğer sisteme kayıtlı değillerse kaydolabilirler.
+
+3. **Oylama Sistemi**
+   - Sisteme giriş yapan kullanıcılar, listelenen kategorilerde oy kullanabilirler.
+   - Oy kullanımı, her kategoriye bir oy ile sınırlıdır.
+
+4. **Sonuçlar**
+   - Oylama bitiminde, her kategori için sonuçlar rakamsal ve yüzdesel olarak gösterilecektir.
+
+## Temel Özellikler
+
+1. **Pre-defined Kategoriler**
+   - Film, Tech Stack ve Spor gibi kategoriler önceden belirlenmiş ve kullanıcıya oylama için sunulacak.
+
+2. **Kullanıcı Kaydı ve Girişi**
+   - Kayıtlı kullanıcılar giriş yaparak oylamaya başlayabilirler.
+   - Eğer kullanıcı kayıtlı değilse, kullanıcı adı ile kaydolmasına olanak sağlanacaktır.
+   
+3. **Oylama**
+   - Her kategori için kullanıcıya bir oy verdirilecektir.
+   - Oylama sonucunda her kategori için oylama sonuçları gösterilecektir.
+
+4. **Sonuç Gösterimi**
+   - Oylama bitiminde her kategori için toplam oy sayısı ve yüzdesel dağılım görüntülenecektir.
+
+## Kullanılacak Teknikler
+
+- **Veritabanı**: Kullanıcıların bilgilerini ve oylama sonuçlarını saklamak için basit bir veritabanı kullanılabilir.
+- **C# veya Python**: Sunucu tarafında oylama işlemleri ve kullanıcı kayıtları yönetilecektir.
+- **CLI veya GUI**: Kullanıcıların oylama yapmasını sağlayan bir komut satırı arayüzü veya basit bir grafiksel kullanıcı arayüzü (GUI) kullanılabilir.
+
+## Akış
+
+### 1. Kullanıcı Kaydı / Girişi
+Kullanıcı, ilk olarak sistemde kaydolmak için kullanıcı adı girecektir. Eğer kullanıcı adı mevcutsa, sisteme giriş yapılır. Değilse, kullanıcı kaydı oluşturulur.
+
+### 2. Oylama
+Kullanıcı sisteme giriş yaptıktan sonra, pre-defined kategoriler sunulur. Kullanıcı her kategori için bir oy verebilir.
+
+### 3. Sonuçlar
+Oylama tamamlandığında, her kategorinin oy sonuçları hem rakamsal hem de yüzdesel olarak gösterilecektir.
+
+### 4. Uygulama Sonlandırma
+Son olarak, kullanıcılar oylama sonuçlarını görüp, uygulama sonlandırılacaktır.     
+
+--------
 
 ## Uçuş Yönetim Sistemi 
 
